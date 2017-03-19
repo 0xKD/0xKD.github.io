@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Random | Mixed Quantum</title>
+  <link rel="stylesheet" href="../static/css/style.css">
+  <style>
+    .messages-list {
+      padding-left: 0;
+      list-style-type: none;
+    }
+    .messages-list > li {
+      position: relative;
+      padding: .5rem 2rem;
+      border-top: 1px dashed #ebebeb;
+    }
+    .messages-list > li:before {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      left: 6px;
+      top: 6px;
+      content: '💬';
+    }
+    .messages-list p {
+      margin: .5rem 0;
+    }
+    .sender {
+      font-weight:500;
+    }
+    .danger {
+      color: red;
+    }
+    .fade-enter-active {
+      transition: background-color 1s cubic-bezier(1, 0, 1, 1), opacity .36s ease-in
+    }
+    .fade-leave-active {
+      transition: opacity 0.36s;
+    }
+    .fade-enter {
+      opacity: 0;
+      background-color: lightyellow;
+    }
+    .fade-leave-to {
+      opacity: 0;
+    }
+    .fade-move {
+      transition: transform 0.36s;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <ul class="inline-list header-list">
+      <li>
+        <a href="../">Home</a>
+      </li>
+      <li>
+        <a href="../random">Random</a>
+      </li>
+    </ul>
+    <hr class="header-sep">
+    <div class="content-box">
+      <h2><strong>Chatter</strong></h2>
+      <p class="light">Type something in the box below, then hit "Post"</p>
+      <div id="app">
+        <label>
+          <input type="text" v-model="inputText">
+          <button type="button" @click="onSubmitText">Post!</button>
+          <button class="danger" type="button" @click="clearMessages"><strong>Clear</strong></button>
+        </label>
+        <transition-group name="fade" tag="ul" class="messages-list">
+          <li v-for="msg in messages" :key="msg">
+            <span class="sender">{{msg.sender}}</span>
+            <small class="light">- {{getDate(msg.created)}}</small>
+            <p class="light">{{msg.text}}</p>
+          </li>
+        </transition-group>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.4/vue.min.js"></script>
+  <script src="../static/js/chatter.js"></script>
+</body>
+</html>
